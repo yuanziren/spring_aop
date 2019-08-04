@@ -1,0 +1,35 @@
+一、配置AOP步骤
+    1.引入aop坐标依赖
+        <!-- spring 核心jar 依赖，官方提供的只支持xml来配 -->
+            <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-context</artifactId>
+              <version>4.3.2.RELEASE</version>
+            </dependency>
+            <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-aop</artifactId>
+              <version>4.3.2.RELEASE</version>
+            </dependency>
+            <!-- aop ，第三方提供，可以通过注解来配-->
+            <dependency>
+              <groupId>org.aspectj</groupId>
+              <artifactId>aspectjweaver</artifactId>
+              <version>1.8.9</version>
+            </dependency>
+    2.在spring.xml
+        2.1使用aop代理（二选一），使用aop代理需要在切面类上加注解@Aspect，以及对通知上面加注解和拦截规则
+            <aop:aspectj-autoproxy/>
+        2.2通过xml配置aop（二选一）
+            <aop:config>
+                    <aop:aspect ref="logCut2">
+                        <aop:pointcut id="cut" expression="execution(* com.yuanziren.service..*.*(..))"/>
+                        <aop:before method="before" pointcut-ref="cut"></aop:before>
+                        <aop:after method="after" pointcut-ref="cut"></aop:after>
+                        <aop:around method="around" pointcut-ref="cut"></aop:around>
+                        <aop:after-returning method="afterReturning" pointcut-ref="cut"></aop:after-returning>
+                        <aop:after-throwing method="afterThrowing" throwing="e" pointcut-ref="cut"></aop:after-throwing>
+                    </aop:aspect>
+                </aop:config>
+        2.3启动包扫描，将类上面所有加注解的类的创建的实例注入到IOC容器中，统一管理
+            <context:component-scan base-package="com.yuanziren"/>
