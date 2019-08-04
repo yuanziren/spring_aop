@@ -13,7 +13,8 @@ public class UserServiceTest {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("spring.xml");
         UserService userService = context.getBean("userService", UserService.class);
-        userService.addUser();
+//        userService.addUser();
+        userService.addUser01();
     }
 
     @Test

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LogCut {
 
     // 拦截规则
-    @Pointcut("execution (* com.yuanziren.service..*.*(..))")
+    @Pointcut("execution (* com.yuanziren.service.UserService.addUser())")
     public void cut(){}
 
     @Before("cut()")
